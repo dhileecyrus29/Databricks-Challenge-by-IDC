@@ -1,6 +1,6 @@
 # Day 5 – Delta Lake Advanced 🚀
 
-This day focused on **advanced Delta Lake features** that are essential for building **production-grade data engineering pipelines**. The goal was to move beyond basic data ingestion and understand how Delta Lake manages **updates, versioning, performance, and storage cleanup**.
+This day focused on **advanced Delta Lake features** that are essential for building **production-grade data engineering pipelines**. The objective was to move beyond basic ingestion and understand how Delta Lake handles **incremental updates, versioning, performance optimization, and storage cleanup**.
 
 ---
 
@@ -20,6 +20,7 @@ This day focused on **advanced Delta Lake features** that are essential for buil
 - Simulated incoming ecommerce event data
 - Performed upserts into an existing Delta table
 - Handled schema differences using explicit column mapping
+- Ensured ACID-safe updates
 
 ### 2. Time Travel
 - Inspected Delta table version history
@@ -40,41 +41,20 @@ This day focused on **advanced Delta Lake features** that are essential for buil
 
 ---
 
-## 🧠 Key Learnings
+## 🧠 Delta Lake Concepts & Commands Practiced
 
-- Delta Lake supports **ACID transactions** on data lakes
-- MERGE enables scalable and safe incremental updates
-- Time Travel is critical for debugging, auditing, and recovery
-- OPTIMIZE and ZORDER significantly improve read performance
-- VACUUM permanently removes unused files and must be used carefully
+```python
+DeltaTable.forPath()          # Load an existing Delta table
+merge()                       # Perform incremental upserts (MERGE INTO)
+whenMatchedUpdate()           # Update records when match condition is met
+whenNotMatchedInsert()        # Insert new records when no match is found
 
----
+DESCRIBE HISTORY              # Inspect Delta table version history
+option("versionAsOf")         # Time travel using table version
+option("timestampAsOf")       # Time travel using timestamp
 
-## 📁 Dataset
+OPTIMIZE                      # Compact small files for better performance
+ZORDER BY                     # Reorganize data layout for efficient filtering
 
-- Ecommerce events dataset
-- Stored as a Delta table in Databricks
-- Used to simulate real-world incremental updates and optimizations
-
----
-
-## 🚀 Outcome
-
-By the end of Day 5, the Delta table was:
-- Incrementally updatable
-- Fully versioned and auditable
-- Performance optimized
-- Storage-managed using best practices
-
----
-
-## 🙏 Acknowledgements
-
-Thanks to **Databricks**, **Codebasics**, and **Indian Data Club** for creating learning initiatives and challenges that promote hands-on, consistent learning.
-
----
-
-## 🔗 Challenge
-
-Part of the **Databricks 14-Day AI Challenge (DatabricksWithIDC)**
-
+VACUUM                        # Remove old, unreferenced data files
+RETAIN HOURS                  # Define retention period for safe cleanup
